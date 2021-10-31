@@ -18,8 +18,8 @@ export default function AddDevice() {
     axios
       .get("http://107.175.94.152:5000/certificate", {
         params: {
-          imei: imeiRef.current.value,
-          email: emailRef.current.value,
+          imei: (imeiRef.current.value || "336655998899"),
+          email: (emailRef.current.value || "infantvalan02@gmail.com"),
         },
       })
       .then((res) => {

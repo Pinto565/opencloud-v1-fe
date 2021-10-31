@@ -8,7 +8,7 @@ export default function LandingPage() {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
 
   const { data: res, error: err } = useSWR(
-    "http://opencloud-dev.herokuapp.com",
+    "http://107.175.94.152:5000/devices/available",
     fetcher
   );
   if (err) {

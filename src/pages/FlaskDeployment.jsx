@@ -1,78 +1,111 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Loader from "../components/Loader";
-import DeploymentStatus from "./CertificateStatus";
+import ApplicationDeploymentStatus from "./ApplicationDeploymentStatus";
 import FadeIn from "../components/FadeIn";
+import axios from "axios";
 
 export default function FlaskDeployment() {
-  const [dataSent, setDataSent] = useState(true);
-  const [dataReceived, setDataReceived] = useState(true);
+  const [dataSent, setDataSent] = useState(false);
+  const [dataReceived, setDataReceived] = useState(false);
+  const [apiData, setApiData] = useState({});
 
-  const testarray = {
-    "name" : "pinto",
-    "age" : "20"
-  }
+  const gitRef = useRef();
+  const deviceRef = useRef();
+  const portRef = useRef();
+
+  const handleOnClick = () => {
+    setDataSent(true);
+    axios
+      .get("http://107.175.94.152:5000/deploy/flask", {
+        params: {
+          giturl:
+            gitRef.current.value ||
+            "https://github.com/Pinto565/sample-flask.git",
+          device: deviceRef.current.value || "10.8.0.2",
+          port: portRef.current.value || "8022",
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        setApiData(res.data);
+        // console.log(apiData);
+      })
+      .then(() => {
+        setDataReceived(true);
+        // console.log(apiData);
+      })
+      .catch((err) => {
+        // console.log(err.response.data);
+        setDataReceived(false);
+        setDataSent(false);
+      });
+  };
 
   return (
     <div>
       <FadeIn>
         {dataSent ? (
           dataReceived ? (
-            <DeploymentStatus given={testarray} >
-              </DeploymentStatus>
+            <ApplicationDeploymentStatus result={apiData}></ApplicationDeploymentStatus>
           ) : (
             <Loader />
           )
         ) : (
           <div>
-              <div className="vh-100 d-flex justify-content-center align-items-center flex-column px-3">
-                <p className="badge bg-primary text-uppercase fs-5 mb-3">
-                  Flask Deployment
-                </p>
-                <form action="#">
-                  <div class="mb-3">
-                    <label for="giturl" class="form-label">
-                      Git URL
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="giturl"
-                      name="giturl"
-                      placeholder="Enter Git URL"
-                    />
+            <div className="vh-100 d-flex justify-content-center align-items-center flex-column px-3">
+              <p className="badge bg-primary text-uppercase fs-5 mb-3">
+                Flask Deployment
+              </p>
+              <form action="#">
+                <div class="mb-3">
+                  <label for="giturl" class="form-label">
+                    Git URL
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="giturl"
+                    name="giturl"
+                    ref={gitRef}
+                    placeholder="Enter Git URL"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="device" class="form-label">
+                    Device Private IP
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="device"
+                    id="device"
+                    ref={deviceRef}
+                    placeholder="Enter Device Private IP"
+                  />
+                  <div className="form-text">
+                    Enter the Device Private IP from{" "}
+                    <a href="/devices">Status Page</a>
                   </div>
-                  <div class="mb-3">
-                    <label for="device" class="form-label">
-                      Device Private IP
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="device"
-                      id="device"
-                      placeholder="Enter Device Private IP"
-                    />
-                    <div className="form-text">
-                      Enter the Device Private IP from{" "}
-                      <a href="/devices">Status Page</a>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="ssh-port" class="form-label">
-                      SSH Port
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="port"
-                      id="ssh-port"
-                      placeholder="Device's SSH Port"
-                    />
-                  </div>
-                  <button class="btn btn-primary">Add</button>
-                </form>
-              </div>
+                </div>
+                <div class="mb-3">
+                  <label for="ssh-port" class="form-label">
+                    SSH Port
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="port"
+                    id="ssh-port"
+                    ref={portRef}
+                    placeholder="Device's SSH Port"
+                  />
+                </div>
+                <button onClick={handleOnClick} class="btn btn-primary">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         )}
       </FadeIn>
