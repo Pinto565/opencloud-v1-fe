@@ -1,6 +1,6 @@
 import React from "react";
 import FadeIn from "../components/FadeIn";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Loader from "../components/Loader";
 import CertificateStatus from "./CertificateStatus";
 import axios from "axios";
@@ -10,27 +10,31 @@ export default function AddDevice() {
   const [dataReceived, setDataReceived] = useState(false);
   const [apiData, setApiData] = useState({});
 
-  // const testarray = {
-  //   name: "pinto",
-  //   age: "20",
-  // };
+  const imeiRef = useRef();
+  const emailRef = useRef();
 
   const handleOnClick = () => {
     setDataSent(true);
     axios
-      .get("http://172.23.22.233:5000/certificate")
+      .get("http://107.175.94.152:5000/certificate", {
+        params: {
+          imei: imeiRef.current.value,
+          email: emailRef.current.value,
+        },
+      })
       .then((res) => {
+        // console.log(res.data);
         setApiData(res.data);
-        console.log(apiData);
+        // console.log(apiData);
       })
       .then(() => {
         setDataReceived(true);
-        console.log(apiData);
+        // console.log(apiData);
       })
       .catch((err) => {
-        console.log(err.response.data);
-        setDataReceived(true)
-        setApiData(err.response.data)
+        // console.log(err.response.data);
+        setDataReceived(false);
+        setDataSent(false)
       });
   };
 
@@ -59,6 +63,7 @@ export default function AddDevice() {
                     class="form-control"
                     id="imei"
                     name="imei"
+                    ref={imeiRef}
                     placeholder="Enter IMEI Number"
                   />
                 </div>
@@ -70,6 +75,7 @@ export default function AddDevice() {
                     type="email"
                     class="form-control"
                     name="email"
+                    ref={emailRef}
                     id="emailaddress"
                     placeholder="Enter your Email Address"
                   />

@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/devices" component={DeviceStatus} />
           <Route exact path="/deploy" component={DeployApplication} />
-          <Route exact path="/deploy/flask" component={FlaskDeployment} />
+          {/* <Route exact path="/deploy/flask" component={FlaskDeployment} /> */}
           <Route exact path="/devices/add" component={AddDevice} />
           <Route exact path="/ssh" component={SshKey} />
         </Switch>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function CertificateStatus(props) {
   return (
@@ -16,6 +17,9 @@ export default function CertificateStatus(props) {
         <p className="badge bg-primary text-uppercase fs-5 mb-3">
           Status == {props.result.status}
         </p>
+        <Link to = "/">
+        <button className="btn btn-success">Home</button>
+        </Link>
       </div>
     </div>
   );
