@@ -15,7 +15,6 @@ export default function SshKey() {
         setDataReceived(true);
       })
       .catch((err) => {
-        setSshKey(err.response.data);
         setDataReceived(true);
       });
   }, []);
