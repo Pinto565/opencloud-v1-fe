@@ -7,13 +7,13 @@ export default function ApplicationDeploymentStatus(props) {
       <div>
         <div className="vh-100 d-flex justify-content-center align-items-center flex-column px-3">
           <p className="badge bg-primary text-uppercase fs-5 mb-3">
-            Status == {props.result.status}
+            {props.result.status}
           </p>
           <p className="badge bg-primary text-uppercase fs-5 mb-3">
-            Site == {props.result.public_site}
+            {props.result.public_site}
           </p>
           <p className="badge bg-primary text-uppercase fs-5 mb-3">
-           Command == {props.result.command}
+            {props.result.command}
           </p>
           <Link to="/">
             <button className="btn btn-success">Home</button>

@@ -10,7 +10,7 @@ export default function FlaskDeployment() {
   const [dataSent, setDataSent] = useState(false);
   const [dataReceived, setDataReceived] = useState(false);
   const [apiData, setApiData] = useState({});
-  const [error , setError] = useState(false);
+  const [error, setError] = useState(false);
 
   const gitRef = useRef();
   const deviceRef = useRef();
@@ -21,11 +21,9 @@ export default function FlaskDeployment() {
     axios
       .get("http://107.175.94.152:5000/deploy/flask", {
         params: {
-          giturl:
-            gitRef.current.value ||
-            "https://github.com/Pinto565/sample-flask.git",
-          device: deviceRef.current.value || "10.8.0.2",
-          port: portRef.current.value || "8022",
+          giturl: gitRef.current.value,
+          device: deviceRef.current.value,
+          port: portRef.current.value,
         },
       })
       .then((res) => {
@@ -39,19 +37,21 @@ export default function FlaskDeployment() {
       })
       .catch((err) => {
         // console.log(err.response.data);
-      setError(true)
+        setError(true);
       });
   };
 
   if (error) {
-    return <Problem />
+    return <Problem />;
   }
   return (
     <div>
       <FadeIn>
         {dataSent ? (
           dataReceived ? (
-            <ApplicationDeploymentStatus result={apiData}></ApplicationDeploymentStatus>
+            <ApplicationDeploymentStatus
+              result={apiData}
+            ></ApplicationDeploymentStatus>
           ) : (
             <Loader />
           )

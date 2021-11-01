@@ -3,7 +3,9 @@ import useSWR from "swr";
 import Cards from "../components/Cards";
 import FadeIn from "../components/FadeIn";
 import Loader from "../components/Loader";
-import Problem from "../components/Problem"
+import Problem from "../components/Problem";
+import "../assests/css/DeviceStatus.css";
+import Img from "../assests/images/pattarai-black.png";
 
 export default function LandingPage() {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -28,7 +30,7 @@ export default function LandingPage() {
       <FadeIn>
         <section className="landing-main">
           <div className="head-section mb-5">
-            {/* <img src={Img} alt="" /> */}
+            <img src={Img} alt="" />
             <div className="text-center">
               <p className="mb-0 mt-2 pattarai-text">PATTARAI'S</p>
               <h1 className="server-status">Server Status</h1>
