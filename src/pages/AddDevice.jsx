@@ -2,13 +2,15 @@ import React from "react";
 import FadeIn from "../components/FadeIn";
 import { useState, useRef } from "react";
 import Loader from "../components/Loader";
-import CertificateStatus from "./CertificateStatus";
+import CertificateStatus from "./ResponsePages/CertificateStatus";
 import axios from "axios";
+import Problem from "../components/Problem";
 
 export default function AddDevice() {
   const [dataSent, setDataSent] = useState(false);
   const [dataReceived, setDataReceived] = useState(false);
   const [apiData, setApiData] = useState({});
+  const [error, setError] = useState(false);
 
   const imeiRef = useRef();
   const emailRef = useRef();
@@ -18,8 +20,8 @@ export default function AddDevice() {
     axios
       .get("http://107.175.94.152:5000/certificate", {
         params: {
-          imei: (imeiRef.current.value || "336655998899"),
-          email: (emailRef.current.value || "infantvalan02@gmail.com"),
+          imei: imeiRef.current.value || "336655998899",
+          email: emailRef.current.value || "infantvalan02@gmail.com",
         },
       })
       .then((res) => {
@@ -33,10 +35,15 @@ export default function AddDevice() {
       })
       .catch((err) => {
         // console.log(err.response.data);
-        setDataReceived(false);
-        setDataSent(false)
+        // setDataReceived(false);
+        // setDataSent(false)
+        setError(true);
       });
   };
+
+  if (error) {
+    return <Problem />;
+  }
 
   return (
     <div>

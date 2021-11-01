@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 
+
 export default function LandingPage() {
   return (
     <div>

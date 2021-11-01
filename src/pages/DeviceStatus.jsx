@@ -3,6 +3,7 @@ import useSWR from "swr";
 import Cards from "../components/Cards";
 import FadeIn from "../components/FadeIn";
 import Loader from "../components/Loader";
+import Problem from "../components/Problem"
 
 export default function LandingPage() {
   const fetcher = (url) => axios.get(url).then((res) => res.data);
@@ -12,7 +13,7 @@ export default function LandingPage() {
     fetcher
   );
   if (err) {
-    return <h1>Problem</h1>;
+    return <Problem />;
   }
   if (!res) {
     return <Loader />;

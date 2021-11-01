@@ -1,14 +1,16 @@
 import React from "react";
 import { useState, useRef } from "react";
 import Loader from "../components/Loader";
-import ApplicationDeploymentStatus from "./ApplicationDeploymentStatus";
+import ApplicationDeploymentStatus from "../pages/ResponsePages/ApplicationDeploymentStatus";
 import FadeIn from "../components/FadeIn";
 import axios from "axios";
+import Problem from "../components/Problem";
 
 export default function FlaskDeployment() {
   const [dataSent, setDataSent] = useState(false);
   const [dataReceived, setDataReceived] = useState(false);
   const [apiData, setApiData] = useState({});
+  const [error , setError] = useState(false);
 
   const gitRef = useRef();
   const deviceRef = useRef();
@@ -37,11 +39,13 @@ export default function FlaskDeployment() {
       })
       .catch((err) => {
         // console.log(err.response.data);
-        setDataReceived(false);
-        setDataSent(false);
+      setError(true)
       });
   };
 
+  if (error) {
+    return <Problem />
+  }
   return (
     <div>
       <FadeIn>
