@@ -29,8 +29,8 @@ export default function SshKey() {
     <div>
       {dataReceived ? (
         <div className="vh-100 d-flex justify-content-center align-items-center">
-          <p className="badge bg-primary text-wrap text-break text-uppercase fs-5 px-3 w-50">
-            Ssh key == {sshkey.ssh_key}
+          <p className="badge text-wrap text-break fs-8 px-3 w-100">
+            {sshkey.ssh_key}
           </p>
         </div>
       ) : (

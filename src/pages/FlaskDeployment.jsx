@@ -67,7 +67,7 @@ export default function FlaskDeployment() {
                     Git URL
                   </label>
                   <input
-                    type="text"
+                    type="url"
                     class="form-control"
                     id="giturl"
                     name="giturl"
