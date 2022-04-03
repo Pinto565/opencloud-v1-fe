@@ -37,7 +37,7 @@ export default function LandingPage() {
             </div>
             <div className="date-time">
               <p className="mb-1 last-updated">Last updated</p>
-              <span>{time} </span>
+              <span>{time}</span>
               <span>{date}</span>
             </div>
           </div>

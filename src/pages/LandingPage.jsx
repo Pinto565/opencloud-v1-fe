@@ -2,28 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 
-
 export default function LandingPage() {
   return (
     <div>
       <FadeIn>
         <div className="vh-100 d-flex justify-content-center align-items-center px-3">
           <Link to="/devices">
-            <button className="btn btn-primary">Device Status</button>
+            <button className="btn btn-primary mx-1">Device Status</button>
           </Link>
-          <Link to="/ssh">
+          {/* <Link to="/ssh">
             <button className="btn btn-primary mx-3">
               Get Master SSH Key
             </button>
-          </Link>
+          </Link> */}
           <Link to="/deploy">
-            <button className="btn btn-primary mx-3">
+            <button className="btn btn-primary mx-1">
               Deploy A Application
             </button>
           </Link>
-          <Link to="/devices/add">
+          {/* <Link to="/devices/add">
             <button className="btn btn-primary">Add Your Device</button>
-          </Link>
+          </Link> */}
         </div>
       </FadeIn>
     </div>

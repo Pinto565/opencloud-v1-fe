@@ -11,6 +11,11 @@ export default function DeployApplication() {
             <button className="btn btn-primary">Python - Flask</button>
           </Link>
         </div>
+        <div className="vh-100 d-flex justify-content-center align-items-center px-3">
+          <Link to="/deploy/html">
+            <button className="btn btn-primary">HTML</button>
+          </Link>
+        </div>
       </FadeIn>
     </div>
   );
